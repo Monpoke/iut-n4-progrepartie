@@ -9,7 +9,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ * List all network interfaces.
  * @author bourgeop
  */
 public class LocalIPS {
@@ -31,7 +31,7 @@ public class LocalIPS {
                 NetworkInterface nextElement = networkInterfaces.nextElement();
                 
                 System.out.println("+++ " + nextElement.getDisplayName() + " +++");
-                
+                System.out.println("MTU: "+nextElement.getMTU());
                 /**
                  * Addresses
                  */
