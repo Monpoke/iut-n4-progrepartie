@@ -1,3 +1,4 @@
+package stuttering;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -17,14 +18,14 @@ import java.util.logging.Logger;
  *
  * @author bourgeop
  */
-public class ClientUDP {
+public class StutteringUDP {
 
     static int port = 9876;
     static String host = "";
 
     private DatagramSocket dgSocket;
 
-    public ClientUDP() {
+    public StutteringUDP() {
 
         try {
 
@@ -44,14 +45,13 @@ public class ClientUDP {
                         try {
                             dp.setData(new byte[255]);
                             dgSocket.receive(dp);
-                            System.out.print("Received something =>");
-
-                            // process data
-                            //System.out.println(dp.toString());
-                            System.out.println(new String(dp.getData()));
+                            String re = new String(dp.getData());
+                            
+                            System.out.println(re.substring(1));
+                            
 
                         } catch (IOException ex) {
-                            Logger.getLogger(ClientUDP.class.getName()).log(Level.SEVERE, null, ex);
+                            Logger.getLogger(StutteringUDP.class.getName()).log(Level.SEVERE, null, ex);
                         }
                     }
                 }
@@ -64,7 +64,7 @@ public class ClientUDP {
             while (true) {
 
                 // on écrit
-                String message = "Salut ! " + new GregorianCalendar().get(Calendar.SECOND);
+                String message = (((int)new GregorianCalendar().get(Calendar.SECOND))% 3) + ":" + "bonjour le monde";
 
                 // on set, on envoie
                 byte[] by = message.getBytes();
@@ -76,16 +76,16 @@ public class ClientUDP {
                 try {
                     Thread.sleep(2000);
                 } catch (InterruptedException ex) {
-                    Logger.getLogger(ClientUDP.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(StutteringUDP.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
 
         } catch (SocketException ex) {
-            Logger.getLogger(ClientUDP.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(StutteringUDP.class.getName()).log(Level.SEVERE, null, ex);
         } catch (UnknownHostException ex) {
-            Logger.getLogger(ClientUDP.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(StutteringUDP.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
-            Logger.getLogger(ClientUDP.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(StutteringUDP.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
@@ -106,7 +106,7 @@ public class ClientUDP {
 
         System.out.println("Connecting to " + host + " on port " + port);
 
-        new ClientUDP();
+        new StutteringUDP();
     }
 
 }
